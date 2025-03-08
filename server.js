@@ -5,7 +5,7 @@ const pool = require('./dbconnection');//hey i am importing the pool from the db
 app.get('/api/get' , async (req, res) => { //there must be a async used here because we are connecting to the database and it takes time to connect to the database
     try {//this is a try block that will attempt to connect to the database
         const client = await pool.connect();// i to the database
-        const result = await client.query('SELECT * FROM users');//This is using SQL to execut a query to retieve data
+        const result = await client.query('SELECT * FROM tools');//This is using SQL to execut a query to retieve data
         const results = { 'results': (result) ? result.rows : null};//hey i am storing the result of the query
         res.send(results);//"res" is response so once the query is successful i will respond with the results
         client.release();//hey i am releasing the connection
@@ -18,7 +18,7 @@ app.get('/api/get' , async (req, res) => { //there must be a async used here bec
 app.get('/api/get/:id' , async (req, res) => {// this is making use of adding parameters to the query in the actual URL
     try {
         const client = await pool.connect();//connects to the database
-        const result = await client.query(`SELECT * FROM users WHERE id = ${req.params.id}`);//req.params is used to get the parameters from the URL
+        const result = await client.query(`SELECT * FROM tools WHERE id = ${req.params.id}`);//req.params is used to get the parameters from the URL
         const results = { 'results': (result) ? result.rows : null};
         res.send(results);
         client.release();
@@ -58,4 +58,4 @@ The endpoint should use the HTTP DELETE method and accept the id of the tool to 
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
-});// run "npm start" to start the server in the terminal 
+});// run "npm start" to start the server in the terminal but you have to do this 
